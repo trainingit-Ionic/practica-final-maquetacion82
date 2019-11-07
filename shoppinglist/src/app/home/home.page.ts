@@ -41,6 +41,7 @@ export class HomePage {
   }
 
   clearAll() {
+    this.history = [];
     this.storage.ready().then(() => {
       this.storage.forEach((v, k) => {
         if (v.isDeleted === false) {
@@ -79,21 +80,23 @@ export class HomePage {
 }
 
   addItem() {
-    this.itemtoken = {id: '', title: '', isChecked: false, isDeleted: false};
-    this.itemtoken.id = Math.random().toString(36).substr(2, 10);
-    this.itemtoken.title = this.inputValue;
-    this.itemtoken.isChecked = false;
-    this.itemtoken.isDeleted = false;
-    //Añadimos item al array
-    this.mylist.push(this.itemtoken);
-    if (this.history.indexOf(this.itemtoken.title) === -1) {
-      this.history.push(this.itemtoken.title);
-    //console.log(this.history);
+    if (this.inputValue !== ''){
+      this.itemtoken = {id: '', title: '', isChecked: false, isDeleted: false};
+      this.itemtoken.id = Math.random().toString(36).substr(2, 10);
+      this.itemtoken.title = this.inputValue;
+      this.itemtoken.isChecked = false;
+      this.itemtoken.isDeleted = false;
+      //Añadimos item al array
+      this.mylist.push(this.itemtoken);
+      if (this.history.indexOf(this.itemtoken.title) === -1) {
+        this.history.push(this.itemtoken.title);
+      //console.log(this.history);
+      }
+      this.inputValue = '';
+      this.storage.ready().then(() => {
+        this.storage.set(this.itemtoken.id, this.itemtoken);
+      });
     }
-    this.inputValue = '';
-    this.storage.ready().then(() => {
-      this.storage.set(this.itemtoken.id, this.itemtoken);
-    });
   }
 
   deleteItem(item) {
