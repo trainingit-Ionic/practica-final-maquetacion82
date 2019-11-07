@@ -1,15 +1,16 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      My shopping list
+      Shopping list
     </ion-title>
+    <ion-button slot="end" (click)="clearAll()">Clear</ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="ion-padding">
     <ion-item>
-      <ion-searchbar placeholder="New item" type="text" [(ngModel)]="inputValue" (ionInput)="search($event)"></ion-searchbar>
+      <ion-searchbar placeholder="New item" type="text" [(ngModel)]="inputValue" (ionInput)="search($event)" color="light"></ion-searchbar>
   <!--     <ion-input placeholder="New item" type="text" [(ngModel)]="inputValue"></ion-input> -->
       <ion-icon name="add-circle" slot="end" (click)="addItem()"></ion-icon>
     </ion-item> 
