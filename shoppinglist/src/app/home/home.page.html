@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      My shopping list
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <ion-item>
+      <ion-searchbar placeholder="New item" type="text" [(ngModel)]="inputValue" (ionInput)="search($event)"></ion-searchbar>
+  <!--     <ion-input placeholder="New item" type="text" [(ngModel)]="inputValue"></ion-input> -->
+      <ion-icon name="add-circle" slot="end" (click)="addItem()"></ion-icon>
+    </ion-item> 
+    <ion-list *ngIf="isItemAvailable">
+      <ion-item *ngFor="let his of searhHistory" (click)="itemSelected(his)">
+        {{ his }}
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of mylist; let i = index">
+          <ion-item>
+            <ion-label>
+                <p *ngIf="item.isChecked" style="text-decoration: line-through;">
+                  {{item.title}}
+                </p>
+                <p *ngIf="!item.isChecked">{{item.title}}</p>
+            </ion-label>
+            <ion-checkbox slot="start" [(ngModel)]="item.isChecked" (click)="modifyValue(item)"></ion-checkbox>
+          </ion-item>
+          <ion-item-options>
+            <ion-item-option color="danger" (click)="deleteItem(item)">
+                <ion-icon name="trash" slot="end"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+</ion-content>
